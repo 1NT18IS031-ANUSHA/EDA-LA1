@@ -1,0 +1,601 @@
+
+R version 4.1.0 (2021-05-18) -- "Camp Pontanezen"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #package installing
+> install.packages("tidyverse")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into ‘C:/Users/vandita/Documents/R/win-library/4.1’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/tidyverse_1.3.1.zip'
+Content type 'application/zip' length 430143 bytes (420 KB)
+downloaded 420 KB
+
+package ‘tidyverse’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\vandita\AppData\Local\Temp\Rtmpe00P8O\downloaded_packages
+> library(tidyverse)
+-- Attaching packages -------------------------------------------------------------------------------- tidyverse 1.3.1 --
+v ggplot2 3.3.5     v purrr   0.3.4
+v tibble  3.1.2     v dplyr   1.0.7
+v tidyr   1.1.3     v stringr 1.4.0
+v readr   1.4.0     v forcats 0.5.1
+-- Conflicts ----------------------------------------------------------------------------------- tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()
+> install.packages("caret")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into ‘C:/Users/vandita/Documents/R/win-library/4.1’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/caret_6.0-88.zip'
+Content type 'application/zip' length 6295081 bytes (6.0 MB)
+downloaded 6.0 MB
+
+package ‘caret’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\vandita\AppData\Local\Temp\Rtmpe00P8O\downloaded_packages
+> library(caret)
+Loading required package: lattice
+
+Attaching package: ‘caret’
+
+The following object is masked from ‘package:purrr’:
+
+    lift
+
+> install.packages("RCurl")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into ‘C:/Users/vandita/Documents/R/win-library/4.1’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/RCurl_1.98-1.3.zip'
+Content type 'application/zip' length 3072176 bytes (2.9 MB)
+downloaded 2.9 MB
+
+package ‘RCurl’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\vandita\AppData\Local\Temp\Rtmpe00P8O\downloaded_packages
+> library(RCurl)
+
+Attaching package: ‘RCurl’
+
+The following object is masked from ‘package:tidyr’:
+
+    complete
+
+> install.packages("skimr")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into ‘C:/Users/vandita/Documents/R/win-library/4.1’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/skimr_2.1.3.zip'
+Content type 'application/zip' length 1238251 bytes (1.2 MB)
+downloaded 1.2 MB
+
+package ‘skimr’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\vandita\AppData\Local\Temp\Rtmpe00P8O\downloaded_packages
+> library(skimr)
+> #importing .csv into global enviroment
+> data <- read.csv("Mall_Customers.csv")
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'Mall_Customers.csv': No such file or directory
+> #importing .csv into global enviroment
+> data <- read.csv("Mall_Customers.csv")
+> #view data
+> head(data)
+  CustomerID Gender Age Annual.Income..k.. Spending.Score..1.100.
+1          1   Male  19                 15                     39
+2          2   Male  21                 15                     81
+3          3 Female  20                 16                      6
+4          4 Female  23                 16                     77
+5          5 Female  31                 17                     40
+6          6 Female  22                 17                     76
+> tail(data)
+    CustomerID Gender Age Annual.Income..k.. Spending.Score..1.100.
+195        195 Female  47                120                     16
+196        196 Female  35                120                     79
+197        197 Female  45                126                     28
+198        198   Male  32                126                     74
+199        199   Male  32                137                     18
+200        200   Male  30                137                     83
+> View(data)
+> str(data)
+'data.frame':	200 obs. of  5 variables:
+ $ CustomerID            : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Gender                : chr  "Male" "Male" "Female" "Female" ...
+ $ Age                   : int  19 21 20 23 31 22 35 23 64 30 ...
+ $ Annual.Income..k..    : int  15 15 16 16 17 17 18 18 19 19 ...
+ $ Spending.Score..1.100.: int  39 81 6 77 40 76 6 94 3 72 ...
+> #extracting copmponents of dataframe
+> data[1,4]
+[1] 15
+> data[,4]
+  [1]  15  15  16  16  17  17  18  18  19  19  19  19  20  20  20  20  21  21  23  23  24  24  25  25  28  28  28  28  29
+ [30]  29  30  30  33  33  33  33  34  34  37  37  38  38  39  39  39  39  40  40  40  40  42  42  43  43  43  43  44  44
+ [59]  46  46  46  46  47  47  48  48  48  48  48  48  49  49  50  50  54  54  54  54  54  54  54  54  54  54  54  54  57
+ [88]  57  58  58  59  59  60  60  60  60  60  60  61  61  62  62  62  62  62  62  63  63  63  63  63  63  64  64  65  65
+[117]  65  65  67  67  67  67  69  69  70  70  71  71  71  71  71  71  72  72  73  73  73  73  74  74  75  75  76  76  77
+[146]  77  77  77  78  78  78  78  78  78  78  78  78  78  78  78  79  79  81  81  85  85  86  86  87  87  87  87  87  87
+[175]  88  88  88  88  93  93  97  97  98  98  99  99 101 101 103 103 103 103 113 113 120 120 126 126 137 137
+> data$Gender
+  [1] "Male"   "Male"   "Female" "Female" "Female" "Female" "Female" "Female" "Male"   "Female" "Male"   "Female"
+ [13] "Female" "Female" "Male"   "Male"   "Female" "Male"   "Male"   "Female" "Male"   "Male"   "Female" "Male"  
+ [25] "Female" "Male"   "Female" "Male"   "Female" "Female" "Male"   "Female" "Male"   "Male"   "Female" "Female"
+ [37] "Female" "Female" "Female" "Female" "Female" "Male"   "Male"   "Female" "Female" "Female" "Female" "Female"
+ [49] "Female" "Female" "Female" "Male"   "Female" "Male"   "Female" "Male"   "Female" "Male"   "Female" "Male"  
+ [61] "Male"   "Male"   "Female" "Female" "Male"   "Male"   "Female" "Female" "Male"   "Female" "Male"   "Female"
+ [73] "Female" "Female" "Male"   "Male"   "Female" "Male"   "Female" "Female" "Male"   "Male"   "Male"   "Female"
+ [85] "Female" "Male"   "Female" "Female" "Female" "Female" "Female" "Male"   "Male"   "Female" "Female" "Male"  
+ [97] "Female" "Female" "Male"   "Male"   "Female" "Female" "Male"   "Male"   "Male"   "Female" "Female" "Male"  
+[109] "Male"   "Male"   "Male"   "Female" "Female" "Male"   "Female" "Female" "Female" "Female" "Female" "Female"
+[121] "Male"   "Female" "Female" "Male"   "Female" "Female" "Male"   "Male"   "Male"   "Male"   "Male"   "Male"  
+[133] "Female" "Female" "Male"   "Female" "Female" "Male"   "Male"   "Female" "Female" "Male"   "Female" "Female"
+[145] "Male"   "Male"   "Male"   "Female" "Female" "Male"   "Male"   "Male"   "Female" "Female" "Female" "Female"
+[157] "Male"   "Female" "Male"   "Female" "Female" "Female" "Male"   "Female" "Male"   "Female" "Male"   "Female"
+[169] "Female" "Male"   "Male"   "Male"   "Male"   "Male"   "Female" "Female" "Male"   "Male"   "Male"   "Male"  
+[181] "Female" "Female" "Male"   "Female" "Female" "Male"   "Female" "Male"   "Female" "Female" "Female" "Female"
+[193] "Male"   "Female" "Female" "Female" "Female" "Male"   "Male"   "Male"  
+> #dimenstion of dataset
+> dim(data)
+[1] 200   5
+> #list the datatype of each attribute
+> sapply(data,class)
+            CustomerID                 Gender                    Age     Annual.Income..k.. Spending.Score..1.100. 
+             "integer"            "character"              "integer"              "integer"              "integer" 
+> #check wheather there is null value
+> sum(is.na(data))
+[1] 0
+> #sumarize
+> summary(data)
+   CustomerID        Gender               Age        Annual.Income..k.. Spending.Score..1.100.
+ Min.   :  1.00   Length:200         Min.   :18.00   Min.   : 15.00     Min.   : 1.00         
+ 1st Qu.: 50.75   Class :character   1st Qu.:28.75   1st Qu.: 41.50     1st Qu.:34.75         
+ Median :100.50   Mode  :character   Median :36.00   Median : 61.50     Median :50.00         
+ Mean   :100.50                      Mean   :38.85   Mean   : 60.56     Mean   :50.20         
+ 3rd Qu.:150.25                      3rd Qu.:49.00   3rd Qu.: 78.00     3rd Qu.:73.00         
+ Max.   :200.00                      Max.   :70.00   Max.   :137.00     Max.   :99.00         
+> #displaying detailed summary statistics
+> skim(data)
+-- Data Summary ------------------------
+                           Values
+Name                       data  
+Number of rows             200   
+Number of columns          5     
+_______________________          
+Column type frequency:           
+  character                1     
+  numeric                  4     
+________________________         
+Group variables            None  
+
+-- Variable type: character ---------------------------------------------------------------------------------------------
+# A tibble: 1 x 8
+  skim_variable n_missing complete_rate   min   max empty n_unique whitespace
+* <chr>             <int>         <dbl> <int> <int> <int>    <int>      <int>
+1 Gender                0             1     4     6     0        2          0
+
+-- Variable type: numeric -----------------------------------------------------------------------------------------------
+# A tibble: 4 x 11
+  skim_variable          n_missing complete_rate  mean    sd    p0   p25   p50   p75  p100 hist 
+* <chr>                      <int>         <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <chr>
+1 CustomerID                     0             1 100.   57.9     1  50.8 100.   150.   200 ▇▇▇▇▇
+2 Age                            0             1  38.8  14.0    18  28.8  36     49     70 ▆▇▅▃▂
+3 Annual.Income..k..             0             1  60.6  26.3    15  41.5  61.5   78    137 ▆▇▇▂▁
+4 Spending.Score..1.100.         0             1  50.2  25.8     1  34.8  50     73     99 ▃▃▇▃▃
+> #group data by index
+> data %>%
++   dplyr::group_by(Age)%>%
++   skim()
+-- Data Summary ------------------------
+                           Values    
+Name                       Piped data
+Number of rows             200       
+Number of columns          5         
+_______________________              
+Column type frequency:               
+  character                1         
+  numeric                  3         
+________________________             
+Group variables            Age       
+
+-- Variable type: character ---------------------------------------------------------------------------------------------
+# A tibble: 51 x 9
+   skim_variable   Age n_missing complete_rate   min   max empty n_unique whitespace
+ * <chr>         <int>     <int>         <dbl> <int> <int> <int>    <int>      <int>
+ 1 Gender           18         0             1     4     6     0        2          0
+ 2 Gender           19         0             1     4     6     0        2          0
+ 3 Gender           20         0             1     4     6     0        2          0
+ 4 Gender           21         0             1     4     6     0        2          0
+ 5 Gender           22         0             1     4     6     0        2          0
+ 6 Gender           23         0             1     6     6     0        1          0
+ 7 Gender           24         0             1     4     6     0        2          0
+ 8 Gender           25         0             1     4     6     0        2          0
+ 9 Gender           26         0             1     4     4     0        1          0
+10 Gender           27         0             1     4     6     0        2          0
+11 Gender           28         0             1     4     6     0        2          0
+12 Gender           29         0             1     4     6     0        2          0
+13 Gender           30         0             1     4     6     0        2          0
+14 Gender           31         0             1     4     6     0        2          0
+15 Gender           32         0             1     4     6     0        2          0
+16 Gender           33         0             1     4     6     0        2          0
+17 Gender           34         0             1     4     6     0        2          0
+18 Gender           35         0             1     4     6     0        2          0
+19 Gender           36         0             1     4     6     0        2          0
+20 Gender           37         0             1     4     6     0        2          0
+21 Gender           38         0             1     4     6     0        2          0
+22 Gender           39         0             1     4     4     0        1          0
+23 Gender           40         0             1     4     6     0        2          0
+24 Gender           41         0             1     6     6     0        1          0
+25 Gender           42         0             1     4     6     0        2          0
+26 Gender           43         0             1     4     6     0        2          0
+27 Gender           44         0             1     6     6     0        1          0
+28 Gender           45         0             1     6     6     0        1          0
+29 Gender           46         0             1     4     6     0        2          0
+30 Gender           47         0             1     4     6     0        2          0
+31 Gender           48         0             1     4     4     0        1          0
+32 Gender           49         0             1     4     6     0        2          0
+33 Gender           50         0             1     4     6     0        2          0
+34 Gender           51         0             1     6     6     0        1          0
+35 Gender           52         0             1     4     6     0        2          0
+36 Gender           53         0             1     4     4     0        1          0
+37 Gender           54         0             1     4     6     0        2          0
+38 Gender           55         0             1     6     6     0        1          0
+39 Gender           56         0             1     6     6     0        1          0
+40 Gender           57         0             1     4     6     0        2          0
+41 Gender           58         0             1     4     6     0        2          0
+42 Gender           59         0             1     4     4     0        1          0
+43 Gender           60         0             1     4     6     0        2          0
+44 Gender           63         0             1     4     6     0        2          0
+45 Gender           64         0             1     4     4     0        1          0
+46 Gender           65         0             1     4     6     0        2          0
+47 Gender           66         0             1     4     6     0        2          0
+48 Gender           67         0             1     4     6     0        2          0
+49 Gender           68         0             1     4     6     0        2          0
+50 Gender           69         0             1     4     4     0        1          0
+51 Gender           70         0             1     4     4     0        1          0
+
+-- Variable type: numeric -----------------------------------------------------------------------------------------------
+# A tibble: 153 x 12
+    skim_variable            Age n_missing complete_rate  mean      sd    p0   p25   p50   p75  p100 hist 
+  * <chr>                  <int>     <int>         <dbl> <dbl>   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <chr>
+  1 CustomerID                18         0             1  76.8  34.8      34  58    79    97.8   115 ▇▇▁▇▇
+  2 CustomerID                19         0             1  97    51.0       1  67.2 113   122.    163 ▂▂▂▇▅
+  3 CustomerID                20         0             1  59.2  56.2       3  18    40   100     135 ▇▃▁▃▃
+  4 CustomerID                21         0             1  52.2  42.3       2  32    36    85     106 ▃▇▁▃▃
+  5 CustomerID                22         0             1  36.7  44.7       6  11    16    52      88 ▇▁▁▁▃
+  6 CustomerID                23         0             1  57.8  50.9       4  13.5  54.5  95.5   125 ▇▃▁▃▇
+  7 CustomerID                24         0             1  49.5  34.1      14  35    44    58.5    96 ▃▇▁▁▃
+  8 CustomerID                25         0             1 100    67.8      22  77.5 133   139     145 ▃▁▁▁▇
+  9 CustomerID                26         0             1  90    19.8      76  83    90    97     104 ▇▁▁▁▇
+ 10 CustomerID                27         0             1 110    51.9      48  68.8 110.  147.    178 ▇▃▃▁▇
+ 11 CustomerID                28         0             1 162.   21.5     143 145.  159   176     188 ▇▁▁▃▃
+ 12 CustomerID                29         0             1 111.   70.0      26  49   136   162     184 ▇▁▁▃▇
+ 13 CustomerID                30         0             1 133.   76.0      10  98   160   181     200 ▅▁▁▅▇
+ 14 CustomerID                31         0             1  75    58.0       5  39    51.5 128     164 ▅▇▁▂▅
+ 15 CustomerID                32         0             1 153.   41.8      70 140   148   187     199 ▃▁▆▃▇
+ 16 CustomerID                33         0             1 138.   75.2      52 110   168   180.    193 ▃▁▁▁▇
+ 17 CustomerID                34         0             1 148.   36.9      89 149   150   159     191 ▃▁▇▃▃
+ 18 CustomerID                35         0             1  69    78.8       7  17    21   140     196 ▇▁▁▁▂
+ 19 CustomerID                36         0             1 152.   55.9      39 167.  171   174.    190 ▂▁▁▁▇
+ 20 CustomerID                37         0             1 118.   89.7      15  86   157   169     181 ▃▁▁▁▇
+ 21 CustomerID                38         0             1 132.   38.2      82 115.  126   148     194 ▃▇▃▃▃
+ 22 CustomerID                39         0             1 136    14.4     124 128   132   142     152 ▇▇▁▁▇
+ 23 CustomerID                40         0             1 104.   48.6      29  82   108.  127.    171 ▃▃▃▇▃
+ 24 CustomerID                41         0             1 187     2.83    185 186   187   188     189 ▇▁▁▁▇
+ 25 CustomerID                42         0             1 102    91.9      37  69.5 102   134.    167 ▇▁▁▁▇
+ 26 CustomerID                43         0             1 115    43.3      67  97   127   139     151 ▇▁▁▇▇
+ 27 CustomerID                44         0             1 145    11.3     137 141   145   149     153 ▇▁▁▁▇
+ 28 CustomerID                45         0             1 100.   87.4      27  52    77   137     197 ▇▇▁▁▇
+ 29 CustomerID                46         0             1  96.7  80.7      23  53.5  84   134.    183 ▇▇▁▁▇
+ 30 CustomerID                47         0             1 118.   52.7      56  78.2 114   149     195 ▇▃▃▃▃
+ 31 CustomerID                48         0             1  93.6  37.1      43  86    93    99     147 ▂▁▇▁▂
+ 32 CustomerID                49         0             1  76.6  33.1      35  48    80   104.    118 ▇▁▂▁▇
+ 33 CustomerID                50         0             1  95.4  48.6      47  55    90   120     165 ▇▃▁▃▃
+ 34 CustomerID                51         0             1  88    43.8      57  72.5  88   104.    119 ▇▁▁▁▇
+ 35 CustomerID                52         0             1  97   110.       19  58    97   136     175 ▇▁▁▁▇
+ 36 CustomerID                53         0             1  46.5  19.1      33  39.8  46.5  53.2    60 ▇▁▁▁▇
+ 37 CustomerID                54         0             1  96    69.5      25  54.2  86   128.    187 ▇▇▇▁▇
+ 38 CustomerID                55         0             1  87    NA        87  87    87    87      87 ▁▁▇▁▁
+ 39 CustomerID                56         0             1 161    NA       161 161   161   161     161 ▁▁▇▁▁
+ 40 CustomerID                57         0             1 111    42.4      81  96   111   126     141 ▇▁▁▁▇
+ 41 CustomerID                58         0             1  95   116.       13  54    95   136     177 ▇▁▁▁▇
+ 42 CustomerID                59         0             1 109.   56.2      54  69.8 102   142.    179 ▇▁▃▁▃
+ 43 CustomerID                60         0             1  59.3  24.5      31  52    73    73.5    74 ▃▁▁▁▇
+ 44 CustomerID                63         0             1  91    36.8      65  78    91   104     117 ▇▁▁▁▇
+ 45 CustomerID                64         0             1   9    NA         9   9     9     9       9 ▁▁▇▁▁
+ 46 CustomerID                65         0             1  76    49.5      41  58.5  76    93.5   111 ▇▁▁▁▇
+ 47 CustomerID                66         0             1 108.    2.12    107 108.  108.  109.    110 ▇▁▁▁▇
+ 48 CustomerID                67         0             1  65    39.5      11  50    73    88     103 ▇▁▇▇▇
+ 49 CustomerID                68         0             1  89.3  20.6      68  79.5  91   100     109 ▇▁▇▁▇
+ 50 CustomerID                69         0             1  58    NA        58  58    58    58      58 ▁▁▇▁▁
+ 51 CustomerID                70         0             1  66     7.07     61  63.5  66    68.5    71 ▇▁▁▁▇
+ 52 Annual.Income..k..        18         0             1  51.2  14.1      33  44.2  53.5  60.5    65 ▃▁▃▁▇
+ 53 Annual.Income..k..        19         0             1  57    20.6      15  47.5  63.5  67.2    81 ▂▁▅▇▅
+ 54 Annual.Income..k..        20         0             1  41.6  24.8      16  21    37    61      73 ▇▃▁▃▃
+ 55 Annual.Income..k..        21         0             1  38.8  19.0      15  30    33    54      62 ▃▇▁▁▇
+ 56 Annual.Income..k..        22         0             1  31.3  22.3      17  18.5  20    38.5    57 ▇▁▁▁▃
+ 57 Annual.Income..k..        23         0             1  41.5  23.4      16  20.8  41.5  60      70 ▇▃▁▃▇
+ 58 Annual.Income..k..        24         0             1  39.2  16.4      20  33.5  38.5  44.2    60 ▃▁▇▁▃
+ 59 Annual.Income..k..        25         0             1  57.7  29.3      24  48    72    74.5    77 ▃▁▁▁▇
+ 60 Annual.Income..k..        26         0             1  58     5.66     54  56    58    60      62 ▇▁▁▁▇
+ 61 Annual.Income..k..        27         0             1  63.2  18.4      40  49.5  63.5  75.2    88 ▇▁▇▃▃
+ 62 Annual.Income..k..        28         0             1  85.2  11.6      76  76.8  82    90.5   101 ▇▁▃▁▃
+ 63 Annual.Income..k..        29         0             1  63.6  28.9      28  40    73    79      98 ▇▁▁▇▃
+ 64 Annual.Income..k..        30         0             1  76.1  39.6      19  56    78    93.5   137 ▅▁▇▂▂
+ 65 Annual.Income..k..        31         0             1  48.4  23.3      17  35.5  41.5  70.5    81 ▅▅▂▁▇
+ 66 Annual.Income..k..        32         0             1  87.2  26.8      48  74    77   100     137 ▃▇▃▂▃
+ 67 Annual.Income..k..        33         0             1  80.3  35.8      42  64    86    99.5   113 ▇▁▁▇▇
+ 68 Annual.Income..k..        34         0             1  79    16.0      58  78    78    78     103 ▂▁▇▁▂
+ 69 Annual.Income..k..        35         0             1  46.7  38.6      18  21    24    74     120 ▇▁▁▁▁
+ 70 Annual.Income..k..        36         0             1  81    22.6      37  85.5  87    87     103 ▂▁▁▇▂
+ 71 Annual.Income..k..        37         0             1  65    40.1      20  49    78    87.5    97 ▇▁▁▇▇
+ 72 Annual.Income..k..        38         0             1  74.5  20.5      54  64.8  69    76.2   113 ▇▇▃▁▃
+ 73 Annual.Income..k..        39         0             1  72.7   4.73     69  70    71    74.5    78 ▇▇▁▁▇
+ 74 Annual.Income..k..        40         0             1  61.7  19.6      29  55.5  64.5  70.5    87 ▃▁▇▇▃
+ 75 Annual.Income..k..        41         0             1 101     2.83     99 100   101   102     103 ▇▁▁▁▇
+ 76 Annual.Income..k..        42         0             1  60    36.8      34  47    60    73      86 ▇▁▁▁▇
+ 77 Annual.Income..k..        43         0             1  65.7  15.7      48  59.5  71    74.5    78 ▇▁▁▇▇
+ 78 Annual.Income..k..        44         0             1  75.5   3.54     73  74.2  75.5  76.8    78 ▇▁▁▁▇
+ 79 Annual.Income..k..        45         0             1  69.3  50.8      28  41    54    90     126 ▇▇▁▁▇
+ 80 Annual.Income..k..        46         0             1  59    36.8      25  39.5  54    76      98 ▇▇▁▁▇
+ 81 Annual.Income..k..        47         0             1  70.2  27.7      43  51.8  65.5  76.2   120 ▇▇▃▁▃
+ 82 Annual.Income..k..        48         0             1  58.2  13.7      39  54    60    61      77 ▃▃▇▁▃
+ 83 Annual.Income..k..        49         0             1  51    12.9      33  40.5  54    62      65 ▅▂▁▂▇
+ 84 Annual.Income..k..        50         0             1  58.6  18.4      40  43    58    67      85 ▇▃▃▁▃
+ 85 Annual.Income..k..        51         0             1  55.5  16.3      44  49.8  55.5  61.2    67 ▇▁▁▁▇
+ 86 Annual.Income..k..        52         0             1  55.5  46.0      23  39.2  55.5  71.8    88 ▇▁▁▁▇
+ 87 Annual.Income..k..        53         0             1  39.5   9.19     33  36.2  39.5  42.8    46 ▇▁▁▁▇
+ 88 Annual.Income..k..        54         0             1  59.8  31.0      28  42.2  55    72.5   101 ▇▇▇▁▇
+ 89 Annual.Income..k..        55         0             1  57    NA        57  57    57    57      57 ▁▁▇▁▁
+ 90 Annual.Income..k..        56         0             1  79    NA        79  79    79    79      79 ▁▁▇▁▁
+ 91 Annual.Income..k..        57         0             1  64.5  14.8      54  59.2  64.5  69.8    75 ▇▁▁▁▇
+ 92 Annual.Income..k..        58         0             1  54    48.1      20  37    54    71      88 ▇▁▁▁▇
+ 93 Annual.Income..k..        59         0             1  65.2  21.8      43  51.2  62.5  76.5    93 ▇▇▇▁▇
+ 94 Annual.Income..k..        60         0             1  43.3  11.5      30  40    50    50      50 ▃▁▁▁▇
+ 95 Annual.Income..k..        63         0             1  56.5  12.0      48  52.2  56.5  60.8    65 ▇▁▁▁▇
+ 96 Annual.Income..k..        64         0             1  19    NA        19  19    19    19      19 ▁▁▇▁▁
+ 97 Annual.Income..k..        65         0             1  50.5  17.7      38  44.2  50.5  56.8    63 ▇▁▁▁▇
+ 98 Annual.Income..k..        66         0             1  63     0        63  63    63    63      63 ▁▁▇▁▁
+ 99 Annual.Income..k..        67         0             1  45.5  18.7      19  40    50.5  56      62 ▃▁▁▃▇
+100 Annual.Income..k..        68         0             1  56.7   7.77     48  53.5  59    61      63 ▇▁▁▇▇
+101 Annual.Income..k..        69         0             1  44    NA        44  44    44    44      44 ▁▁▇▁▁
+102 Annual.Income..k..        70         0             1  47.5   2.12     46  46.8  47.5  48.2    49 ▇▁▁▁▇
+103 Spending.Score..1.100.    18         0             1  60    22.6      41  46.2  53.5  67.2    92 ▇▃▁▁▃
+104 Spending.Score..1.100.    19         0             1  39.8  20.9       5  31.8  48    54.2    59 ▃▁▁▃▇
+105 Spending.Score..1.100.    20         0             1  40.2  33.0       5   6    49    66      75 ▇▁▁▃▇
+106 Spending.Score..1.100.    21         0             1  66.8  17.0      42  57    73    81      81 ▃▃▁▃▇
+107 Spending.Score..1.100.    22         0             1  70    13.1      55  65.5  76    77.5    79 ▃▁▁▁▇
+108 Spending.Score..1.100.    23         0             1  63.3  26.4      29  43.8  64.5  84.5    94 ▇▃▁▃▇
+109 Spending.Score..1.100.    24         0             1  71.5  17.1      52  61.8  71    80.8    92 ▇▇▁▇▇
+110 Spending.Score..1.100.    25         0             1  39.7  30.9      12  23    34    53.5    73 ▇▇▁▁▇
+111 Spending.Score..1.100.    26         0             1  54.5   0.707    54  54.2  54.5  54.8    55 ▇▁▁▁▇
+112 Spending.Score..1.100.    27         0             1  60.3  16.0      47  50.2  53.5  65.8    89 ▇▂▂▁▂
+113 Spending.Score..1.100.    28         0             1  70    23.5      40  61    71.5  80.5    97 ▇▁▇▇▇
+114 Spending.Score..1.100.    29         0             1  76.6  19.5      42  82    83    88      88 ▂▁▁▁▇
+115 Spending.Score..1.100.    30         0             1  80.3   9.12     72  73    78    84.5    97 ▇▂▅▁▂
+116 Spending.Score..1.100.    31         0             1  63.9  18.2      40  51    66    74      93 ▇▇▃▇▃
+117 Spending.Score..1.100.    32         0             1  66    22.4      18  55    73    80      93 ▂▃▂▇▆
+118 Spending.Score..1.100.    33         0             1  54.3  43.8       8  34    60    77.5    95 ▇▁▇▁▇
+119 Spending.Score..1.100.    34         0             1  39.2  35.5       1  22    23    60      90 ▃▇▁▃▃
+120 Spending.Score..1.100.    35         0             1  63.9  32.4       6  35    72    90      99 ▂▅▂▅▇
+121 Spending.Score..1.100.    36         0             1  52.5  35.4      10  26.2  51    82.5    92 ▇▃▁▃▇
+122 Spending.Score..1.100.    37         0             1  15.3  15.6       1   7    13    22.5    32 ▇▇▁▁▇
+123 Spending.Score..1.100.    38         0             1  63.2  20.6      40  45.2  65    75.8    91 ▇▃▁▇▃
+124 Spending.Score..1.100.    39         0             1  84.7   8.50     75  81.5  88    89.5    91 ▃▁▁▁▇
+125 Spending.Score..1.100.    40         0             1  47.5  27.9      13  33.2  44    55.5    95 ▃▇▇▁▃
+126 Spending.Score..1.100.    41         0             1  28    15.6      17  22.5  28    33.5    39 ▇▁▁▁▇
+127 Spending.Score..1.100.    42         0             1  18.5   2.12     17  17.8  18.5  19.2    20 ▇▁▁▁▇
+128 Spending.Score..1.100.    43         0             1  34    16.5      17  26    35    42.5    50 ▇▁▇▁▇
+129 Spending.Score..1.100.    44         0             1  13.5   9.19      7  10.2  13.5  16.8    20 ▇▁▁▁▇
+130 Spending.Score..1.100.    45         0             1  37.7  13.4      28  30    32    42.5    53 ▇▁▁▁▃
+131 Spending.Score..1.100.    46         0             1  21.3  20.3       5  10    15    29.5    44 ▇▇▁▁▇
+132 Spending.Score..1.100.    47         0             1  28.5  16.6       9  16    28.5  41.8    47 ▇▁▁▁▇
+133 Spending.Score..1.100.    48         0             1  41.8   5.85     36  36    42    46      49 ▇▁▃▃▃
+134 Spending.Score..1.100.    49         0             1  42.7  16.3      14  35    48    54      59 ▂▂▁▅▇
+135 Spending.Score..1.100.    50         0             1  45.8  12.3      26  45    46    55      57 ▃▁▁▇▇
+136 Spending.Score..1.100.    51         0             1  46.5   4.95     43  44.8  46.5  48.2    50 ▇▁▁▁▇
+137 Spending.Score..1.100.    52         0             1  21    11.3      13  17    21    25      29 ▇▁▁▁▇
+138 Spending.Score..1.100.    53         0             1  25    29.7       4  14.5  25    35.5    46 ▇▁▁▁▇
+139 Spending.Score..1.100.    54         0             1  35.8  20.5      14  21.5  35    49.2    59 ▇▇▁▇▇
+140 Spending.Score..1.100.    55         0             1  58    NA        58  58    58    58      58 ▁▁▇▁▁
+141 Spending.Score..1.100.    56         0             1  35    NA        35  35    35    35      35 ▁▁▇▁▁
+142 Spending.Score..1.100.    57         0             1  28    32.5       5  16.5  28    39.5    51 ▇▁▁▁▇
+143 Spending.Score..1.100.    58         0             1  15     0        15  15    15    15      15 ▁▁▇▁▁
+144 Spending.Score..1.100.    59         0             1  33    24.3      11  13.2  30.5  50.2    60 ▇▁▁▃▃
+145 Spending.Score..1.100.    60         0             1  36.3  28.2       4  26.5  49    52.5    56 ▃▁▁▁▇
+146 Spending.Score..1.100.    63         0             1  47     5.66     43  45    47    49      51 ▇▁▁▁▇
+147 Spending.Score..1.100.    64         0             1   3    NA         3   3     3     3       3 ▁▁▇▁▁
+148 Spending.Score..1.100.    65         0             1  43.5  12.0      35  39.2  43.5  47.8    52 ▇▁▁▁▇
+149 Spending.Score..1.100.    66         0             1  49     1.41     48  48.5  49    49.5    50 ▇▁▁▁▇
+150 Spending.Score..1.100.    67         0             1  41.5  19.8      14  34.2  46.5  53.8    59 ▃▁▃▁▇
+151 Spending.Score..1.100.    68         0             1  48.7   6.03     43  45.5  48    51.5    55 ▇▁▇▁▇
+152 Spending.Score..1.100.    69         0             1  46    NA        46  46    46    46      46 ▁▁▇▁▁
+153 Spending.Score..1.100.    70         0             1  55.5   0.707    55  55.2  55.5  55.8    56 ▇▁▁▁▇
+> #create validation set
+> validation <- createDataPartition(data$Age,p=0.50,list=FALSE)
+> validation50 <-data[-validation,]
+> data<-data[validation,]
+> view(data)
+> #input and output
+> x<-data[,2:3]
+> view(x)
+> y<-data[,2]
+> view(y)
+> #plots
+> boxplot(x[,2],main=names(data)[1],ylab="Age")
+> boxplot(x[,2],main=names(data)[3],ylab="Gender")
+> #for all attribute
+> par (mfrow=c(1,1))
+> for(i in 1:1)
++   boxplot(x[,i],main=names(data)[i])
+Error in x[floor(d)] + x[ceiling(d)] : 
+  non-numeric argument to binary operator
+> library(caret)
+> plot(x)
+Error in plot.window(...) : need finite 'xlim' values
+In addition: Warning messages:
+1: In xy.coords(x, y, xlabel, ylabel, log) : NAs introduced by coercion
+2: In min(x) : no non-missing arguments to min; returning Inf
+3: In max(x) : no non-missing arguments to max; returning -Inf
+> #scatter plot
+> library(caret)
+> featurePlot(x=x,y=y)
+Warning messages:
+1: In order(as.numeric(x)) : NAs introduced by coercion
+2: In diff(as.numeric(x[ord])) : NAs introduced by coercion
+3: In diff(as.numeric(y[ord])) : NAs introduced by coercion
+4: In diff(as.numeric(y[ord])) : NAs introduced by coercion
+5: In (function (x, y, type = "p", groups = NULL, pch = if (is.null(groups)) plot.symbol$pch else superpose.symbol$pch,  :
+  NAs introduced by coercion
+6: In (function (x, y, type = "p", groups = NULL, pch = if (is.null(groups)) plot.symbol$pch else superpose.symbol$pch,  :
+  NAs introduced by coercion
+7: In (function (x, y, type = "p", groups = NULL, pch = if (is.null(groups)) plot.symbol$pch else superpose.symbol$pch,  :
+  NAs introduced by coercion
+> install.packages("ellipse")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into ‘C:/Users/vandita/Documents/R/win-library/4.1’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/ellipse_0.4.2.zip'
+Content type 'application/zip' length 72044 bytes (70 KB)
+downloaded 70 KB
+
+package ‘ellipse’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\vandita\AppData\Local\Temp\Rtmpe00P8O\downloaded_packages
+> library(ellipse)
+
+Attaching package: ‘ellipse’
+
+The following object is masked from ‘package:graphics’:
+
+    pairs
+
+> library(caret)
+> featurePlot(x=x,y=y,plot ="ellipse")
+NULL
+> #box plots
+> library(caret)
+> featurePlot(x=x,y=y,plot="box")
+NULL
+> #density plot
+> scales<-list(x=list(relation="free"),y=list(relation="free"))
+> scales<-list(x=list(relation="free"),y=list(relation="free"))
+> featurePlot(x=x,y=y,plot = "density",scales=scales)
+NULL
+> #barplot
+> counts<-table(data$Age)
+> barplot(counts)
+> barplot(counts,horiz=TRUE)
+> barplot(counts,
++         main="Barplot",xlab="open",legend=rownames(counts),col=c("red","yellow","green"))
+> #boxplot
+> bwplot(~Age,data=data,main="boxplots")
+> library("caret")
+> #High
+> bwplot(~Age|Gender,data=data,main="boxplots")
+> #hisogram
+> install.packages("lattice")
+Error in install.packages : Updating loaded packages
+
+Restarting R session...
+
+> install.packages("lattice")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into ‘C:/Users/vandita/Documents/R/win-library/4.1’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/lattice_0.20-44.zip'
+Content type 'application/zip' length 1182219 bytes (1.1 MB)
+downloaded 1.1 MB
+
+package ‘lattice’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\vandita\AppData\Local\Temp\Rtmp6BvQCY\downloaded_packages
+> library(lattice)
+> histogram(~Age,data = data,main="histogram")
+> histogram(~CustomerID,data = data,main="histogram")
+> #scatter
+> xyplot(Age~CustomerID,data=data,main="Scatterplot")
+> #box plots
+> library(caret)
+Loading required package: ggplot2
+> featurePlot(x=x,y=y,plot="box")
+NULL
+> #density plot
+> scales<-list(x=list(relation="free"),y=list(relation="free"))
+> scales<-list(x=list(relation="free"),y=list(relation="free"))
+> featurePlot(x=x,y=y,plot = "density",scales=scales)
+NULL
+> #scatter
+> xyplot(Age~CustomerID,data=data,main="Scatterplot")
+> #barchart
+> barchart(~Age,data=data,main="Barchart")
+> barchart(~CustomerID,data=data,main="Barchart")
+> #densityplot
+> densityplot(~Age,data=data)
+> densityplot(~CustomerID,data=data)
+> #piechart
+> install.packages("plotrix")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into ‘C:/Users/vandita/Documents/R/win-library/4.1’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.1/plotrix_3.8-1.zip'
+Content type 'application/zip' length 1138090 bytes (1.1 MB)
+downloaded 1.1 MB
+
+package ‘plotrix’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\vandita\AppData\Local\Temp\Rtmp6BvQCY\downloaded_packages
+> library(plotrix)
+> slices<-c("Age")
+> lbls<-c("CustomerID")
+> pie(slices,labels=lbls,main="Piecharts")
+Error in pie(slices, labels = lbls, main = "Piecharts") : 
+  'x' values must be positive.
+> #ggplot
+> library(ggplot2)
+> library(grid)
+> library(gridExtra)
+Error in library(gridExtra) : there is no package called ‘gridExtra’
+> (plot1<-ggplot(data=data,mapping=aes(x=Age,y=CustomerID))+geom_boxplot())
+Warning message:
+Continuous x aesthetic -- did you forget aes(group=...)? 
+> ggplot(data=data,mapping=aes(x=Age,y=CustomerID))+geom_boxplot(notch = TRUE,outlier.colour = "green",outlier.size = 3)
+Warning message:
+Continuous x aesthetic -- did you forget aes(group=...)? 
+> #modify
+> ggplot(data=data,mapping=aes(x=CustomerID,y=Age,colour=CustomerID))+geom_point()+facet_grid(~Age)
